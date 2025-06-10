@@ -1,0 +1,17 @@
+---
+- name: Get VMWare info
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Cather vcenter info
+      community.vmware.vmware_about_info:
+        vcenter_hostname: '{{ vcenter_hostname }}'
+        vcenter_username: '{{ vcenter_username }}'
+        vcenter_password: '{{ vcenter_password }}'
+        vcenter_validate_certs: false
+      delegate_to: localhost
+      register: vcenter_about_info
+ 
+    - name: Print gathered info
+      ansible.builtin.debug:
+        var: vcenter_about_info

@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  gather_facts: no
+  become: yes
+
+  tasks:
+    - name: Create migration plan
+      openshift_migration_plan:
+        name: "vmware-to-openshift-migration"
+        source_type: "vmware"
+        source_url: "ire-lab1-vc02.dtcp.local"
+        source_username: "vcenter.testing@ngcs-lab.local"
+        source_password: "tyv-XFZ1ehb0wcy!tdw"
+        target_project: "openshift-mtv"
+        vm_name: "Win-2019"
+        network_mappings:
+          - source: "CPMS-External"
+            target: "vmware-d7tpk"
+        storage_mappings:
+          - source: "vmware_datastores"
+            target: "vmware-kf9dp"
+        migration_type: "warm"  # or "warm"
+      register: migration_plan
